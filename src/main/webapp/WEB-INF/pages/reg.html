@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<body>
+    <h1>Registration page</h1>
+    <form th:method="POST" th:action="@{reg}" th:object="${user}">
+        <label>Email<input type="email" th:field="*{email}"/></label><br><br>
+        <label>Password<input type="password" th:field="*{password}"/></label><br><br>
+        <label>First name<input type="text" th:field="*{firstName}"/></label><br><br>
+        <label>Last name<input type="text" th:field="*{lastName}"/></label><br><br>
+        <label>Age<input type="text" th:field="*{age}"/></label><br><br>
+        <ul>
+            <li th:each="role : ${roles}" style="list-style-type: none">
+                <input type="checkbox" th:id="${role.getAuthority()}" th:name="${role.getAuthority()}"
+                       th:value="${role.getId()}">
+                <label th:for="${role.getAuthority()}" th:text="${role.getAuthority()}"></label>
+            </li>
+        </ul>
+
+        <br>
+        <br>
+
+        <input type="submit" value="Registration">
+    </form>
+    <br>
+    <br>
+
+    </body>
+</html>

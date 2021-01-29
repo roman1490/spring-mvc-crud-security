@@ -13,13 +13,21 @@ public class UserDaoImpl implements UserDao {
 
     private final EntityManagerFactory entityManagerFactory;
 
+    @Override
+    public User getUserByEmail(String email) {
+        EntityManager em = entityManagerFactory.createEntityManager();
+        return (User) em.createQuery("from User where email = :email")
+                .setParameter("email", email)
+                .getSingleResult();
+    }
+
     @Autowired
     public UserDaoImpl(EntityManagerFactory entityManagerFactory) {
         this.entityManagerFactory = entityManagerFactory;
     }
 
     @Override
-    public User getUser(int id) {
+    public User getUserById(int id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         return entityManager.find(User.class, id);
     }
@@ -38,8 +46,12 @@ public class UserDaoImpl implements UserDao {
         entityManager.getTransaction().begin();
 
         User user = entityManager.find(User.class, id);
-        user.setName(newUser.getName());
+        user.setFirstName(newUser.getFirstName());
+        user.setLastName(newUser.getLastName());
         user.setAge(newUser.getAge());
+        user.setEmail(newUser.getEmail());
+        user.setPassword(newUser.getPassword());
+        user.setRoles(newUser.getRoles());
 
         entityManager.getTransaction().commit();
     }

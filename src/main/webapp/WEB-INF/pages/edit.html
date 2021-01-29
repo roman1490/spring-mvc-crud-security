@@ -5,12 +5,21 @@
     <title>Edit</title>
 </head>
 <body>
-<form th:method="PATCH" th:action="@{/index/{id}(id=${user.getId()})}" th:object="${user}">
-    <label for="name">Name</label>
-    <input type="text" th:field="*{name}" id="name" />
+<form th:method="PATCH" th:action="@{/admin/{id}(id=${user.getId()})}" th:object="${user}">
+    <label>Email<input type="email" th:field="*{email}"/></label><br><br>
+    <label>Password<input type="password" th:field="*{password}"/></label><br><br>
+    <label>First name<input type="text" th:field="*{firstName}"/></label><br><br>
+    <label>Last name<input type="text" th:field="*{lastName}"/></label><br><br>
+    <label>Age<input type="text" th:field="*{age}"/></label><br><br>
+    <ul>
+        <li th:each="role : ${roles}" style="list-style-type: none">
+            <input type="checkbox" th:id="${role.getAuthority()}" th:name="${role.getAuthority()}"
+                   th:value="${role.getId()}" th:checked="${user.hasRole(role.getAuthority())}">
+            <label th:for="${role.getAuthority()}" th:text="${role.getAuthority()}"></label>
+        </li>
+    </ul>
+
     <br>
-    <label for="age">Age</label>
-    <input type="text" th:field="*{age}" id="age" />
     <br>
     <input type="submit" value="edit User">
 </form>

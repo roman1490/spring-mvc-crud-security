@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User page</title>
+</head>
+<body>
+
+<h1>Personal [[${user.email}]] information-page</h1>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>Email</th>
+        <th>Role</th>
+    </tr>
+    <tr th:object="${user}">
+        <td th:text="*{id}"></td>
+        <td th:text="*{firstName}"></td>
+        <td th:text="*{lastName}"></td>
+        <td th:text="*{age}"></td>
+        <td th:text="*{email}"></td>
+        <td>
+            <ul th:each="role : ${user.getRoles()}">
+                <li th:text="${role.role}" style="list-style-type: none"></li>
+            </ul>
+        </td>
+    </tr>
+</table>
+<br>
+<div th:each="role : ${user.getRoles()}">
+<p th:if="${role.getAuthority().contains('ROLE_ADMIN')}"><a th:href="@{/admin/adminPage}">to admin page</a></p>
+</div>
+<br>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Sign Out"/>
+</form>
+</body>
+</html>
