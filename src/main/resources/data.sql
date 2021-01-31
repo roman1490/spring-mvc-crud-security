@@ -1,4 +1,4 @@
-INSERT INTO users (id, age, email, firstName, lastName, password) VALUES (1, 25, 'admin@admin.com', 'admin', 'admin', 'admin');
+INSERT INTO users (id, age, email, first_name, last_name, password) VALUES (1, 25, 'admin@admin.com', 'admin', 'admin', 'admin');
 
 INSERT INTO roles (id, role) VALUES (1, 'ROLE_ADMIN');
 INSERT INTO roles (id, role) VALUES (2, 'ROLE_USER');
